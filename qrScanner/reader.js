@@ -17,10 +17,7 @@ function _getNextWorker(r){
 }
 
 function getNextWorker(){
-    return new Promise(r => {
-        var f = _getNextWorker.bind(null, f, r);
-        f()
-    })
+    return new Promise(_getNextWorker)
 }
 
 export default async bitmap => {
