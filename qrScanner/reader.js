@@ -1,25 +1,5 @@
 import workers from './workers.js'
-
-const setImmediate = (() => {
-    var head = {},
-        tail = head;
-    var ID = Math.random();
-
-    window.addEventListener('message', e => {
-        if (e.data != ID) return;
-        head = head.next;
-        var func = head.func;
-        delete head.func;
-        func()
-    });
-
-    return func => {
-        tail = tail.next = {
-            func: func
-        };
-        window.postMessage(ID, "*")
-    }
-})();
+import 'https://cdn.jsdelivr.net/gh/YuzuJS/setImmediate@1/setImmediate.js'
 
 function getNearestFreeWorker(){
     let i = 0;
@@ -31,9 +11,9 @@ function getNearestFreeWorker(){
     }
 }
 
-function _getNextWorker(selfBound, r){
+function _getNextWorker(r){
     let w = getNearestFreeWorker();
-    if(w) r(w); else setImmediate(selfBound)
+    if(w) r(w); else setImmediate(_getNextWorker, r)
 }
 
 function getNextWorker(){
