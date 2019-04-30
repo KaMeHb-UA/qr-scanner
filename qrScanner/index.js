@@ -1,7 +1,7 @@
 import reader from './reader.js'
 
 // tests for fibonacci generator
-document.body.innerHTML = '<pre style="width:100%;height:100%;overflow:auto;"></pre>';
+document.body.innerHTML = '<pre style="width:100%;height:100%;overflow:auto;color:white;margin:5%"></pre>';
 const pre = document.body.children[0];
 function echo(text){
     pre.innerText += text + '\n'
