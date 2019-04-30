@@ -1,0 +1,15 @@
+html, body{
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+video{
+    height: 100%;
+    width: 100%;
+}
+.alert{
+    display: none;
+}
+body.no-camera .alert{
+    display: block;
+}
