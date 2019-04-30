@@ -7,6 +7,7 @@ import QrScanner from './qrScanner/index.js';
             qrScanner = new QrScanner(videoElem, onDecode);
 
         qrScanner.setInversionMode('both');
+        qrScanner.start();
 
         function onDecode(result){
             alert('decoded qr code:', result)
