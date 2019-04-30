@@ -8,6 +8,8 @@ export default (async function() {
         env: {
             memory: new WebAssembly.Memory({initial: 1}),
             STACKTOP: 0,
+            __table_base: 0,
+            __memory_base: 0,
         }
     };
     const { instance } = await WebAssembly.instantiateStreaming(fetch(wasm), imports);
