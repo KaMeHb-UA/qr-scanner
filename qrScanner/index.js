@@ -1,4 +1,15 @@
-import QrScanner from 'https://cdn.jsdelivr.net/npm/qr-scanner@1/qr-scanner.min.js';
-QrScanner.WORKER_PATH = 'qrScanner/worker.js';
+let wasm = `import.meta.url`.split('/');
+wasm.pop();
+wasm = wasm.join('/') + '/reader.wasm';
+console.log({ wasm });
 
-export default QrScanner
+export default (async function() {
+    const imports = {
+        env: {
+            memory: new WebAssembly.Memory({initial: 1}),
+            STACKTOP: 0,
+        }
+    };
+    const { instance } = await WebAssembly.instantiateStreaming(fetch(wasm), imports);
+    return instance.exports._read
+})()

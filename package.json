@@ -1,0 +1,8 @@
+{
+    "name": "qr-scanner",
+    "scripts": {
+        "postinstall": "docker pull trzeci/emscripten",
+        "emcc": "docker run --rm -v $(pwd):/src trzeci/emscripten emcc",
+        "build": "yarn emcc -O3 -s WASM=1 -s SIDE_MODULE=1 -o qrScanner/reader.wasm c/qr-reader.c"
+    }
+}
