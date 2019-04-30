@@ -21,35 +21,32 @@ const setImmediate = (() => {
     }
 })();
 
-function _getNextWorker(r){
-    let resolved = false;
-    workers.forEach(w => {
+function getNearestFreeWorker(){
+    let i = 0;
+    for(; i < workers.length; i++){
         if(!w.inUse){
             resolved = true;
             w.inUse = true;
-            r(w)
+            return w
         }
-    });
-    if(!resolved) setImmediate(_getNextWorker.bind(null, r));
+    }
+}
+
+function _getNextWorker(selfBound, r){
+    let w = getNearestFreeWorker();
+    if(w) r(w); else setImmediate(selfBound)
 }
 
 function getNextWorker(){
-    return new Promise(_getNextWorker)
-}
-
-function asyncWorker(worker){
-    return val => new Promise(r => {
-        worker.onmessage = e => {
-            worker.onmessage = null;
-            r(e.data)
-        };
-        worker.postMessage(val)
+    return new Promise(r => {
+        let f = _getNextWorker.bind(null, f, r);
+        f()
     })
 }
 
 export default async bitmap => {
     const w = await getNextWorker();
-    const res = await asyncWorker(w.worker)(bitmap);
+    const res = await w.worker(bitmap);
     w.inUse = false;
     return res
 }
