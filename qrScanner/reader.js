@@ -25,7 +25,6 @@ function getNearestFreeWorker(){
     let i = 0;
     for(; i < workers.length; i++){
         if(!workers[i].inUse){
-            resolved = true;
             workers[i].inUse = true;
             return workers[i]
         }
