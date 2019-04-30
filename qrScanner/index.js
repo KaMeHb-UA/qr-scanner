@@ -1,4 +1,4 @@
-let wasm = `import.meta.url`.split('/');
+let wasm = import.meta.url.split('/');
 wasm.pop();
 wasm = wasm.join('/') + '/reader.wasm';
 console.log({ wasm });
