@@ -1,5 +1,3 @@
-console.log('Worker:', {__wasm});
-
 const qrReadF = (async() => {
     const imports = {
         env: {
@@ -12,3 +10,9 @@ const qrReadF = (async() => {
     const { instance } = await WebAssembly.instantiateStreaming(fetch(__wasm), imports);
     return instance.exports._read
 })();
+
+onmessage = async msg => {
+    const readQR = await qrReadF;
+    const res = readQR(msg.data);
+    postMessage(res)
+}

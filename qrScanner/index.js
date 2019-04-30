@@ -1,6 +1,6 @@
-import workers from './workers.js'
+import reader from './reader.js'
 
-console.log({workers});
+console.log({reader});
 
 export default class {
     static async read(bitmap){
