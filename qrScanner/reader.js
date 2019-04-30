@@ -39,7 +39,7 @@ function _getNextWorker(selfBound, r){
 
 function getNextWorker(){
     return new Promise(r => {
-        let f = _getNextWorker.bind(null, f, r);
+        var f = _getNextWorker.bind(null, f, r);
         f()
     })
 }
