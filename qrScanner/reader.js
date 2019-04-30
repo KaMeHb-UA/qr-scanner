@@ -24,10 +24,10 @@ const setImmediate = (() => {
 function getNearestFreeWorker(){
     let i = 0;
     for(; i < workers.length; i++){
-        if(!w.inUse){
+        if(!workers[i].inUse){
             resolved = true;
-            w.inUse = true;
-            return w
+            workers[i].inUse = true;
+            return workers[i]
         }
     }
 }
