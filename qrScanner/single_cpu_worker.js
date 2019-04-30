@@ -12,7 +12,9 @@ const qrReadF = (async() => {
 })();
 
 onmessage = async msg => {
+    console.log('Called worker', __workerN);
     const readQR = await qrReadF;
     const res = readQR(msg.data);
+    console.log('Worker', __workerN, 'done its stuff with result', res);
     postMessage(res)
 }

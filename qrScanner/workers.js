@@ -11,16 +11,15 @@ function jsFromCode(code){
     return 'data:application/javascript;base64,' + btoa(code)
 }
 
-const workerLink = jsFromCode(`const __wasm=${JSON.stringify(wasm)};importScripts(${JSON.stringify(worker)})`);
+//const workerLink = jsFromCode(`const __wasm=${JSON.stringify(wasm)},__workerN=${i};importScripts(${JSON.stringify(worker)})`);
 
 let workerList = [];
 
-for (let i = 0; i < window.navigator.hardwareConcurrency; i++) {
-    let newWorker = {
-        worker: new Worker(workerLink),
+for (let i = 0; i < window.navigator.hardwareConcurrency; i++){
+    workerList.push({
+        worker: new Worker(jsFromCode(`const __wasm=${JSON.stringify(wasm)},__workerN=${i};importScripts(${JSON.stringify(worker)})`)),
         inUse: false
-    };
-    workerList.push(newWorker)
+    })
 }
 
 export default workerList
