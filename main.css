@@ -3,7 +3,7 @@ html, body{
     margin: 0;
     border: 0;
 }
-video{
+html, body, video{
     height: 100%;
     width: 100%;
 }
