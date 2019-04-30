@@ -32,3 +32,5 @@ async function test2(){
     const end = new Date;
     return end - start
 }
+
+export default null
