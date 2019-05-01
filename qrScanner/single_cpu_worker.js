@@ -1,3 +1,5 @@
+onmessage = msg => main(msg.data).then(postMessage); // 'cause this is worker, you know
+
 const qrReadF = (async() => {
     const imports = {
         env: {
@@ -11,10 +13,19 @@ const qrReadF = (async() => {
     return instance.exports._read
 })();
 
-onmessage = async msg => {
+function blockCPU(ms){
+    const start = new Date;
+    while(true) if(new Date - ms >= start) return;
+}
+
+async function main(bitmap){
+    //*
+    blockCPU(bitmap);
+    /*/
     console.log('Called worker', __workerN);
     const readQR = await qrReadF;
-    const res = readQR(msg.data);
+    const res = readQR(bitmap);
     console.log('Worker', __workerN, 'done its stuff with result', res);
-    postMessage(res)
+    return res
+    //*/
 }
