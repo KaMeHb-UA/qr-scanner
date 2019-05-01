@@ -19,7 +19,7 @@ function blockCPU(ms){
 }
 
 async function main(bitmap){
-    //*
+    /*
     blockCPU(bitmap);
     /*/
     console.log('Called worker', __workerN);
