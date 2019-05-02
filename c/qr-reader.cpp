@@ -1,6 +1,7 @@
 #include <emscripten.h>
 #include "quirc/lib/quirc.h"
 #include <new>
+#include <iostream>
 
 
 EMSCRIPTEN_KEEPALIVE
@@ -14,6 +15,9 @@ char** read(int** &image){
     uint8_t* _image;
     int w, h;
     _image = quirc_begin(qr, &w, &h);
+
+    int width = sizeof(image[0]);
+    std::cout << "width detected: " << width;
     /* Fill out the image buffer here.
      * image is a pointer to a w*h bytes.
      * One byte per pixel, w pixels per line, h lines in the buffer.
